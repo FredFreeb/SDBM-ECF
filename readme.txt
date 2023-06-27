@@ -1,0 +1,19 @@
+schéma:
+app: 
+    -models:
+        -
+    -views:
+        -   
+    controllers:
+        -
+public:
+    -index.php
+database:
+    -sdbm_v2.sql
+vendor:
+    -composer
+    -twbs
+    -autoload.php
+composer.json
+composer.lock
+readme.txt
