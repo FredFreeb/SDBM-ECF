@@ -1,9 +1,14 @@
 schéma:
+
+index.php
+public:
+    -styles.css
+    -router.php
 app: 
     -models:
         -beer.model.php
         -color.model.php
-        -fonction.model.php
+        -config.php
     -views:
         -beer.view.php
         -color.view.php
@@ -14,9 +19,6 @@ app:
         -beer.controller.php
         -color.controller.php
         -home.controller.php
-public:
-    -index.php
-    -router.php
 vendor:
     -composer
     -twbs
