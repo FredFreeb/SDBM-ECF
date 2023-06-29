@@ -1,11 +1,10 @@
 <?php
 
-// Inclure le modèle
-require_once 'beer.php';
+$title = 'Nos bières';
+include '../views/layout.php';
+require '../models/beer.model.php';
+// require '../models/fonction.model.php';
+require '../views/beer.view.php';
+include '../views/footer.php';
 
-
-$articles = getBeers();
-
-// Inclure la vue pour afficher les utilisateurs
-require_once 'beerView.php';
-
+?>

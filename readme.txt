@@ -1,15 +1,22 @@
 schéma:
 app: 
     -models:
-        -
+        -beer.model.php
+        -color.model.php
+        -fonction.model.php
     -views:
-        -   
+        -beer.view.php
+        -color.view.php
+        -footer.view.php
+        -home.view.php
+        -layout.php   
     controllers:
-        -
+        -beer.controller.php
+        -color.controller.php
+        -home.controller.php
 public:
     -index.php
-database:
-    -sdbm_v2.sql
+    -router.php
 vendor:
     -composer
     -twbs
