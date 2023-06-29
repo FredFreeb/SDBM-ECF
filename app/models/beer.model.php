@@ -26,6 +26,7 @@ class beerModel {
         $stmt->bindParam(':newName', $newName);
         $stmt->bindParam(':beerId', $beerId);
         $stmt->execute();
+        echo '<script>reloadPage();</script>';
     }
 }
 

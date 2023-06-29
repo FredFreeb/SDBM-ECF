@@ -4,11 +4,11 @@ $url = $_SERVER['REQUEST_URI'];
 $path = parse_url($url, PHP_URL_PATH);
 $parts = explode('/', $path);
 $page = '/'.end($parts);
-echo $page;
+
 switch ($page) {
     case '/index.php':
-        require_once 'home.controller.php';
-        echo '$page';
+        header('Location: /home.view.php'); // Rediriger vers la page d'accueil
+        exit;
         break;
 
     case '/home.view.php':
@@ -17,12 +17,16 @@ switch ($page) {
 
     case '/beer.view.php':
         require_once 'controllers/beer.controller.php';
-        $controller = new beerModel();
         break;
 
     case '/color.view.php':
         require_once 'controllers/color.controller.php';
-        $controller = new colorModel();
+        break;
+
+    default:
+        // Page non trouvée, afficher une erreur ou une page 404
+        echo 'Page not found';
         break;
 }
+
 ?>

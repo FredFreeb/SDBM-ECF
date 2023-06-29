@@ -14,7 +14,8 @@ app:
         -color.view.php
         -footer.view.php
         -home.view.php
-        -layout.php   
+        -layout.php
+        -modal.view.php   
     controllers:
         -beer.controller.php
         -color.controller.php

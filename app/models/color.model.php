@@ -14,10 +14,36 @@ class colorModel {
     }
 
     public function createColor($newColor) {
-        $query = 'INSERT INTO couleur (NOM_COULEUR) VALUES (:newColor)';
+        // Vérifier si la couleur existe déjà
+        $query = 'SELECT ID_COULEUR FROM couleur WHERE NOM_COULEUR = :newColor';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':newColor', $newColor);
         $stmt->execute();
+        $existingColor = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($existingColor) {
+            // La couleur existe déjà, pas besoin de l'insérer
+            return;
+        }
+    
+        // Récupérer le dernier ID_COULEUR
+        $query = 'SELECT MAX(ID_COULEUR) AS maxId FROM couleur';
+        $stmt = $this->conn->query($query);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $lastId = $result['maxId'];
+    
+        // Incrémenter l'ID_COULEUR
+        $newId = $lastId + 1;
+    
+        // Insérer la nouvelle couleur avec le nouvel ID_COULEUR
+        $query = 'INSERT INTO couleur (ID_COULEUR, NOM_COULEUR) VALUES (:newId, :newColor)';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':newId', $newId);
+        $stmt->bindParam(':newColor', $newColor);
+        $stmt->execute();
+        echo '<script>reloadPage();</script>';
     }
+    
+    
 }    
 ?>
