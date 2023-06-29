@@ -7,20 +7,21 @@ $page = '/'.end($parts);
 echo $page;
 switch ($page) {
     case '/index.php':
-        require_once 'controllers/home.controller.php';
+        require_once 'home.controller.php';
+        echo '$page';
         break;
 
     case '/home.view.php':
-        require_once '../app/controllers/home.controller.php';
+        require_once 'controllers/home.controller.php';
         break;
 
     case '/beer.view.php':
-        require_once '../app/controllers/beer.controller.php';
+        require_once 'controllers/beer.controller.php';
         $controller = new beerModel();
         break;
 
     case '/color.view.php':
-        require_once '../app/controllers/color.controller.php';
+        require_once 'controllers/color.controller.php';
         $controller = new colorModel();
         break;
 }

@@ -12,6 +12,12 @@ class colorModel {
         $colors = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $colors;
     }
-}
-    
+
+    public function createColor($newColor) {
+        $query = 'INSERT INTO couleur (NOM_COULEUR) VALUES (:newColor)';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':newColor', $newColor);
+        $stmt->execute();
+    }
+}    
 ?>
