@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/public/styles.css">
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
@@ -20,13 +20,13 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../controllers/home.controller.php">Accueil</a>
+                        <a class="nav-link" href="http://localhost:3000/index.php">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../controllers/beer.controller.php">Bières</a>
+                        <a class="nav-link" href="http://localhost:3000/index.php/beer">Bières</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../controllers/color.controller.php">Les parfums</a>
+                        <a class="nav-link" href="http://localhost:3000/index.php/color">Les parfums</a>
                     </li>
                 </ul>
             </div>

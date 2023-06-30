@@ -22,20 +22,20 @@ class colorModel {
         $existingColor = $stmt->fetch(PDO::FETCH_ASSOC);
     
         if ($existingColor) {
-            // La couleur existe déjà, pas besoin de l'insérer
+            //pas de couleur déjà dans la base
             return;
         }
     
-        // Récupérer le dernier ID_COULEUR
+        // dernier id du tableau
         $query = 'SELECT MAX(ID_COULEUR) AS maxId FROM couleur';
         $stmt = $this->conn->query($query);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $lastId = $result['maxId'];
     
-        // Incrémenter l'ID_COULEUR
+        // incrémente de 1
         $newId = $lastId + 1;
     
-        // Insérer la nouvelle couleur avec le nouvel ID_COULEUR
+        // donnée à ajouter
         $query = 'INSERT INTO couleur (ID_COULEUR, NOM_COULEUR) VALUES (:newId, :newColor)';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':newId', $newId);

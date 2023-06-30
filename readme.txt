@@ -1,25 +1,23 @@
 schéma:
 
 index.php
-public:
-    -styles.css
-    -router.php
-app: 
-    -models:
-        -beer.model.php
-        -color.model.php
-        -config.php
-    -views:
-        -beer.view.php
-        -color.view.php
-        -footer.view.php
-        -home.view.php
-        -layout.php
-        -modal.view.php   
-    controllers:
-        -beer.controller.php
-        -color.controller.php
-        -home.controller.php
+styles.css
+router.php
+-models:
+    -beer.model.php
+    -color.model.php
+    -config.php
+-views:
+    -beer.view.php
+    -color.view.php
+    -footer.view.php
+    -home.view.php
+    -layout.php
+    -modal.view.php   
+controllers:
+    -beer.controller.php
+    -color.controller.php
+    -home.controller.php
 vendor:
     -composer
     -twbs

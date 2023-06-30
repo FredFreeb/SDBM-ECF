@@ -1,3 +1,3 @@
 <?php
-include 'public/router.php';
+    require_once ('router.php');
 ?>
