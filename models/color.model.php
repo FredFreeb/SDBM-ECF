@@ -1,5 +1,5 @@
 <?php
-class colorModel {
+class ColorModel {
     private $conn;
 
     public function __construct() {

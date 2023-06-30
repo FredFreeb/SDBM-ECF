@@ -1,15 +1,7 @@
 <div class="text-center">
     <h1>C'est la page des couleurs</h1>
     <?php 
-    $model = new colorModel();
-    $colors = $model->getColors();
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['newColor'])) {
-            $newColor = $_POST['newColor'];
-            $model->createColor($newColor);
-        }
-    }
+        $title = 'Colors';
     ?>
 
     <table>

@@ -1,6 +1,6 @@
 <?php
 
-class beerModel {
+class BeerModel {
     private $conn;
 
     public function __construct() {

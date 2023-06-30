@@ -1,16 +1,9 @@
 <div class="text-center">
-    <?php 
-    $model = new beerModel();
-    $beers = $model->getBeers();
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['beerId']) && isset($_POST['newName'])) {
-            $beerId = $_POST['beerId'];
-            $newName = $_POST['newName'];
-            $model->updateBeer($beerId, $newName);
-        }
-    }
-    ?>
+
     <h1>C'est la page des bières</h1>
+    <?php 
+        $title = 'Beers';
+    ?>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>

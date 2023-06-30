@@ -8,11 +8,10 @@
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-
     <div class="container-fluid text">
-    <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -31,6 +30,21 @@
                 </ul>
             </div>
         </div>
-    </nav>
-</header>
+            </nav>
+        </header>
 
+        <?php include $content; ?>
+
+        <footer class="text-center">
+            <h2>Mon super footer</h2>
+        </footer>
+
+        <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/vendor/components/jquery/jquery.min.js"></script>
+        <script>
+            function reloadPage() {
+                location.reload();
+            }
+        </script>
+    </body>
+</html>

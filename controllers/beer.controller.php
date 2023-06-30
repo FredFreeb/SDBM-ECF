@@ -1,15 +1,20 @@
 <?php
 
-$title = 'Nos bières';
-
+require_once 'models/beer.model.php';
 
 class BeerController {
-    public function index() {
-        include 'views/layout.php';
-        require 'models/beer.model.php';
-        require 'views/beer.view.php';
-        include 'views/modal.view.php';
-        include 'views/footer.php';
+    private $model;
+
+    public function __construct(){
+        $this->model = new BeerModel();
     }
+
+    public function index() {
+        $beers = $this->model->getBeers();
+        $content = 'views/beer.view.php';
+        include 'views/layout.php';
+    }
+
 }
+
 ?>
