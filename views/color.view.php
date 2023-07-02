@@ -1,7 +1,7 @@
 <div class="text-center">
     <h1>C'est la page des couleurs</h1>
     <?php 
-        $title = 'Colors';
+        $title = 'Nos Couleurs';
     ?>
 
     <table>

@@ -24,4 +24,5 @@ vendor:
     -autoload.php
 composer.json
 composer.lock
+script.js
 readme.txt

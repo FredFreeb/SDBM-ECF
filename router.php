@@ -36,6 +36,12 @@ switch ($route) {
         $controller = new ColorController();
         $controller->index();
         break;
+    // case '/index.php/color/createColor':
+    //     require_once 'controllers/color.controller.php';
+    //     $colorController = new ColorController();
+    //     $colorController->route();
+    //     break;
+        
     default:
         // Route non trouvée, afficher une page d'erreur ou rediriger vers une page d'accueil
         echo '404 - Page not found';

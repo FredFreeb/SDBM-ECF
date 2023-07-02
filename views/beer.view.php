@@ -1,9 +1,21 @@
 <div class="text-center">
-
     <h1>C'est la page des bières</h1>
     <?php 
         $title = 'Beers';
     ?>
+<form method="POST">
+    <label for="beerColorFilter">Filtrer par Couleur :</label>
+    <select id="beerColorFilter" name="beerColorFilter">
+        <option value="">Toutes les couleurs</option>
+        <?php foreach ($colors as $color): ?>
+            <option value="<?php echo $color['NOM_COULEUR']; ?>"><?php echo $color['NOM_COULEUR']; ?></option>
+        <?php endforeach; ?>
+    </select>
+    <button type="submit" name="filterButton">Filtrer</button>
+</form>
+
+
+
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>

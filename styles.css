@@ -1,4 +1,21 @@
+html{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+}
 body {
+    padding: 1%;
+    width: 100%;
     color: azure;
     background-color: green;
+}
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+footer {
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
 }

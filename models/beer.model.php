@@ -4,7 +4,11 @@ class BeerModel {
     private $conn;
 
     public function __construct() {
-        require_once 'config.php';
+        $dbHost = 'localhost';
+        $dbName = 'sdbm_v2';
+        $dbUser = 'root';
+        $dbPass = '';
+        // require_once 'config.php';
         $this->conn = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
     }
 
@@ -19,14 +23,20 @@ class BeerModel {
         $beers = $requeteComp->fetchAll(PDO::FETCH_ASSOC);
         return $beers;
     }
-
+    public function getBeerByColors() {
+        $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
+                        FROM article
+                        JOIN couleur ON article.ID_COULEUR = couleur.ID_COULEUR';
+                        
+        $colors = $this->conn->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        return $colors;
+    }
     public function updateBeer($beerId, $newName) {
         $query = 'UPDATE article SET NOM_ARTICLE = :newName WHERE ID_ARTICLE = :beerId';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':newName', $newName);
         $stmt->bindParam(':beerId', $beerId);
         $stmt->execute();
-        echo '<script>reloadPage();</script>';
     }
 }
 
