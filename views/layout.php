@@ -17,17 +17,18 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:3000/index.php">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:3000/index.php/beer">Bières</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:3000/index.php/color">Les parfums</a>
-                    </li>
-                </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:3000/">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:3000/beer">Bières</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:3000/color">Les parfums</a>
+                </li>
+            </ul>
+
             </div>
         </div>
             </nav>

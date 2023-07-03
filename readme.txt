@@ -10,7 +10,6 @@ router.php
 -views:
     -beer.view.php
     -color.view.php
-    -footer.view.php
     -home.view.php
     -layout.php
     -modal.view.php   

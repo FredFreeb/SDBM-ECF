@@ -1,19 +1,15 @@
-<div class="text-center">
-    <h1>C'est la page des couleurs</h1>
-    <?php 
-        $title = 'Nos Couleurs';
-    ?>
-
-    <table>
+<div class="container">
+    <h1>Liste des couleurs</h1>
+    <ul>
         <?php foreach ($colors as $color): ?>
-        <tr>
-            <td><?php echo $color['NOM_COULEUR']; ?></td>
-        </tr>
+            <li><?= $color['NOM_COULEUR'] ?></li>
         <?php endforeach; ?>
-    </table>
+    </ul>
 
-    <form method="POST">
-        <input type="text" name="newColor" placeholder="Nouvelle couleur">
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+    <h2>Ajouter une nouvelle couleur</h2>
+    <form action="addColor.php" method="post">
+        <input type="text" name="newColor" placeholder="Nouvelle couleur" required>
+        <input type="submit" value="Ajouter">
     </form>
+
 </div>
