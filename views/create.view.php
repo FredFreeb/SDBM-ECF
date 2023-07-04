@@ -1,4 +1,4 @@
-<h2>Une erreur? Modifiez-la : </h2>
+<h2>Envie d'une nouvelle bière, créez-la : </h2>
 <form action="/update-beer/<?= $beer['ID_ARTICLE'] ?>" method="post">
     <label for="name">Nom de l'article :</label>
     <input type="text" name="name" value="">

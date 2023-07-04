@@ -1,7 +1,9 @@
 <!-- beer.view.php -->
 <div class="container text-center">
+
     <h1>Liste des bières</h1>
     <?php $title = 'Beers'; ?>
+
     <form action="/beer" method="post">
         <select name="color">
             <option value="">Toutes les couleurs</option>
@@ -12,7 +14,10 @@
         <input type="submit" value="Filtrer">
     </form>
 
-    <div class="table-responsive-max-height">
+    <h2>Envie d'une nouvelle bière, créez-la : </h2>
+        <a class="btn btn-secondary" href="/beer/create">Créer</a>
+    
+        <div class="table-responsive-max-height">
         <table class="table table-striped">
             <thead>    
                 <tr>
@@ -33,14 +38,11 @@
                     <td><?= $beer['NOM_COULEUR'] ?></td>
                     <td><?= $beer['NOM_TYPE'] ?></td>
                     <td>
-                    <form action="/update/<?= $beer['ID_ARTICLE'] ?>" method="post">
-                        <button type=" btn submit">Modifier</button>
-                    </form>
+                        <a class="btn btn-secondary" href="/beer/update">Modifier</a>
                     </td>
-
                 </tr>
                 <?php endforeach; ?>
+                
             </tbody>
-        </table>
     </div>
     </div>

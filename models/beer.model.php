@@ -25,6 +25,25 @@ class BeerModel {
         }
     }
 
+    public function editBeer($beerId) {
+        try {
+            $query = 'SELECT * FROM article WHERE ID_ARTICLE = :beerId';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':beerId', $beerId);
+            $stmt->execute();
+            $beer = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            $stmt->bindParam(':marqueId', $marqueId);
+            $stmt->bindParam(':couleurId', $couleurId);
+            $stmt->bindParam(':volume', $volume);
+    
+            $content = 'views/edit-beer.view.php';
+            include 'views/layout.php';
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération de la bière : " . $e->getMessage();
+        }
+    }
+    
     public function getBeers($colorId = "") {
         try {
             $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
@@ -52,7 +71,54 @@ class BeerModel {
             echo "Erreur lors de la récupération des bières : " . $e->getMessage();
         }
     }
-
+    public function getVolumes() {
+        try {
+            $query = 'SELECT DISTINCT VOLUME FROM article';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $volumes = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            return $volumes;
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des volumes : " . $e->getMessage();
+        }
+    }
+    
+    public function getMarques() {
+        try {
+            $query = 'SELECT ID_MARQUE, NOM_MARQUE FROM marque';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $marques = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $marques;
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des marques : " . $e->getMessage();
+        }
+    }
+    
+    public function getCouleurs() {
+        try {
+            $query = 'SELECT ID_COULEUR, NOM_COULEUR FROM couleur';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $couleurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $couleurs;
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des couleurs : " . $e->getMessage();
+        }
+    }
+    
+    public function getTypes() {
+        try {
+            $query = 'SELECT ID_TYPE, NOM_TYPE FROM typebiere';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $types;
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des types : " . $e->getMessage();
+        }
+    }
+    
     public function getRandomBeers() {
         try {
             $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
@@ -82,7 +148,6 @@ class BeerModel {
             $stmt->bindParam(':newTitration', $newTitration);
             $stmt->bindParam(':newBrandId', $newBrandId);
             $stmt->bindParam(':newColorId', $newColorId);
-            $stmt->bindParam(':newTypeId', $newTypeId);
             $stmt->bindParam(':beerId', $beerId);
             $stmt->execute();
         } catch (PDOException $e) {

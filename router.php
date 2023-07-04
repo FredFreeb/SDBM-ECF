@@ -10,7 +10,7 @@ $route = str_replace($baseUrl, '', $requestUrl);
 
 // Supprimer les éventuels paramètres de requête
 $route = strtok($route, '?');
-echo(strtok($route, '?'));
+// echo(strtok($route, '?'));
 // Traiter la route demandée
 switch ($route) {
     case '/':
@@ -28,13 +28,19 @@ switch ($route) {
             $controller->index();
         }
         break;
-    case '/<?= $beer["ID_ARTICLE"] ?>':
+    
+    case '/beer/create':
         require_once 'controllers/beer.controller.php';
-        require_once 'views/modif.view.php';
         $controller = new BeerController();
-        $controller -> update();
-        echo'je charge bien le switch';
+        $controller->create();
         break;
+
+    case '/beer/update':
+        require_once 'controllers/beer.controller.php';
+        $controller = new BeerController();
+        $controller->update();
+        break;
+        
     case '/color':
         require_once 'controllers/color.controller.php';
         $controller = new ColorController();
