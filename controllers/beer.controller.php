@@ -15,15 +15,22 @@ class BeerController {
         $selectedColor = isset($_POST['color']) ? $_POST['color'] : "";
         $beers = $this->beerModel->getBeers($selectedColor);
         $colors = $this->colorModel->getColors();
-        
-        // Inclure le contenu du modal dans la variable $modalContent
-        ob_start();
-        include 'views/modal.view.php';
-        $modalContent = ob_get_clean();
-
         $content = 'views/beer.view.php';
         include 'views/layout.php';
     }
+
+    public function update() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $beerId = $_POST['beerId'];
+            $newName = $_POST['name'];
+            
+            $this->beerModel->updateBeer();
+        }
+    
+        $content = 'views/beer.view.php';
+        include 'views/layout.php';
+    }
+    
 }
 ?>
 

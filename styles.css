@@ -11,6 +11,15 @@ body {
     background-color: green;
 }
 
+.table-responsive-max-height {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+.max-height{
+    justify-content: center;
+    max-height: 70vh;
+    width: 100%;
+}
 footer {
     width: 100%;
     justify-content: center;

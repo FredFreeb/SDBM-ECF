@@ -1,5 +1,5 @@
 <!-- beer.view.php -->
-<div class="container">
+<div class="container text-center">
     <h1>Liste des bières</h1>
     <?php $title = 'Beers'; ?>
     <form action="/beer" method="post">
@@ -12,7 +12,7 @@
         <input type="submit" value="Filtrer">
     </form>
 
-    <div class="table-responsive overflow-x-auto">
+    <div class="table-responsive-max-height">
         <table class="table table-striped">
             <thead>    
                 <tr>
@@ -33,13 +33,14 @@
                     <td><?= $beer['NOM_COULEUR'] ?></td>
                     <td><?= $beer['NOM_TYPE'] ?></td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal<?= $beer['ID_ARTICLE'] ?>">
-                            Modifier
-                        </button>
+                    <form action="/update/<?= $beer['ID_ARTICLE'] ?>" method="post">
+                        <button type=" btn submit">Modifier</button>
+                    </form>
                     </td>
+
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-</div>
+    </div>

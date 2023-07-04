@@ -4,7 +4,7 @@
 <title><?php echo @$title; ?></title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -22,10 +22,10 @@
                     <a class="nav-link" href="http://localhost:3000/">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:3000/beer">Bières</a>
+                    <a class="nav-link" href="http://localhost:3000/beer">Nos Bières</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:3000/color">Les parfums</a>
+                    <a class="nav-link" href="http://localhost:3000/color">Nos couleurs</a>
                 </li>
             </ul>
 
@@ -51,7 +51,7 @@
     </ul>
 </footer>
         <script src="/vendor/components/jquery/jquery.min.js"></script>
-        <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>        
         <script src="/script.js"></script>
     </body>
 </html>

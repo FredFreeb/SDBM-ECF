@@ -7,12 +7,13 @@ router.php
     -beer.model.php
     -color.model.php
     -config.php
+    -image.model.php
 -views:
     -beer.view.php
     -color.view.php
     -home.view.php
     -layout.php
-    -modal.view.php   
+    -modif.view.php   
 controllers:
     -beer.controller.php
     -color.controller.php
