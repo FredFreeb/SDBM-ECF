@@ -2,43 +2,46 @@
 require_once 'models/color.model.php';
 
 class ColorController {
-    private $model;
+    private $colorModel;
 
     public function __construct(){
-        $this->model = new ColorModel();
+        $this->colorModel = new ColorModel();
+        
     }
 
     public function index() {
-        $colors = $this->model->getColors();
-        $content = 'views/color.view.php';
-        include 'views/layout.php';
+        $colors = $this->colorModel->getAllColor();
+        $content='views/colors/read.php';
+        require 'views/layout.php';
     }
 
-    public function updateColor() {
-        $colors = $this->model->updateColor();
-        $content = 'views/color.view.php';
-        include 'views/layout.php';
+    public function create($colorName) { // Renommer le paramètre en $colorName
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $colorName = $_POST['color'];
+            $this->colorModel->createColor($colorName); // Appeler la fonction createColor du modèle
+        } else {
+            require 'views/colors/create.php';
+        }
     }
+    
 
-    public function addColor() {
-        // Récupérer le nom de la couleur depuis le formulaire
+    public function update() {
         $newColor = $_POST['newColor'];
-    
-        // Obtenir l'ID maximum actuel depuis la base de données
-        $maxId = $this->model->getMaxColorId();
-    
-        // Calculer le nouvel ID en ajoutant 1
-        $newId = $maxId + 1;
-    
-        // Appeler la fonction createColor() en passant le nouvel ID et le nom de la couleur
-        $this->model->createColor($newId, $newColor);
-    
-        // Rediriger vers la page de liste des couleurs avec un message de confirmation
-        $message = 'La nouvelle couleur a été ajoutée avec succès.';
-        $colors = $this->model->getColors();
+        $colorId = $_POST['colorId'];
+        $this->colorModel->updateColor($newColor, $colorId);
         $content = 'views/color.view.php';
         include 'views/layout.php';
     }
-    
+
+    public function delete() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $colorId = $_POST['colorId'];
+        $this->colorModel->deleteColor($colorId);
+    } else {
+        $content = 'views/colors/delete.php';
+    }
+        include 'views/layout.php';
+    }
+
 }
 ?>

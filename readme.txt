@@ -3,17 +3,27 @@ schéma:
 index.php
 styles.css
 router.php
+
 -models:
     -beer.model.php
     -color.model.php
     -config.php
     -image.model.php
+
 -views:
-    -beer.view.php
-    -color.view.php
+    -beers:
+        -create.php
+        -read.php
+        -update.php
+        -delete.php
+    -colors:
+        -create.php
+        -read.php
+        -update.php
+        -delete.php
     -home.view.php
     -layout.php
-    -modif.view.php   
+  
 controllers:
     -beer.controller.php
     -color.controller.php

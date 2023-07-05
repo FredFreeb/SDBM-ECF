@@ -8,14 +8,17 @@ body {
     padding: 1%;
     width: 100%;
     color: azure;
-    background-color: green;
+    background-color: rgb(9, 82, 9);
 }
 
 .table-responsive-max-height {
-    max-height: 50vh;
+    text-align: center;
+    justify-content: center;
+    max-height: 60vh;
     overflow-y: auto;
 }
 .max-height{
+    text-align: center;
     justify-content: center;
     max-height: 75vh;
     width: 100%;

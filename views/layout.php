@@ -19,13 +19,13 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:3000/">Accueil</a>
+                    <a class="nav-link" href="http://localhost:3000/index.php">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:3000/beer">Nos Bières</a>
+                    <a class="nav-link" href="http://localhost:3000/index.php/beers">Nos Bières</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:3000/color">Nos couleurs</a>
+                    <a class="nav-link" href="http://localhost:3000/index.php/colors">Nos crud Simples</a>
                 </li>
             </ul>
 
@@ -33,15 +33,13 @@
         </div>
             </nav>
         </header>
-
         <?php include $content; ?>
-
 <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <div class="col-md-4 d-flex align-items-center">
         <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
         </a>
-        <span class="text-muted">&copy; 2021 Company, Inc</span>
+        <span class="text-muted">&copy; 2021 FRIBEL, Frédéric</span>
     </div>
 
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
