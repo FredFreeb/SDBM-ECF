@@ -6,6 +6,7 @@ class ColorModel {
         require 'config.php';
         $this->conn = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
     }
+
     public function getNextPrimaryKeyValue($tableName, $primaryKeyColumnName) {
         $query = "SELECT MAX($primaryKeyColumnName) AS max_id FROM $tableName";
         $stmt = $this->conn->prepare($query);
@@ -44,7 +45,7 @@ class ColorModel {
 
     public function createColor($colorName) {
         $nextId = $this->getNextPrimaryKeyValue('couleur', 'ID_COULEUR');
-        $query = "INSERT INTO couleur (NOM_COULEUR, ID_COULEUR) VALUES (:colorName, :colorId)";
+        $query = "INSERT INTO couleur (ID_COULEUR, NOM_COULEUR) VALUES (:colorId, :colorName)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':colorId', $nextId);
         $stmt->bindParam(':colorName', $colorName);

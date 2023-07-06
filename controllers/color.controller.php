@@ -20,29 +20,31 @@ class ColorController {
             $colorName = $_POST['colorName'];
             $this->colorModel->createColor($colorName);
         } else {
-            require 'views/colors/create.php';
+    
         }
+        $content = 'views/colors/create.php';
+        include 'views/layout.php';
     }
     
 
     public function update() {
+        $colorId = $_POST['colorId']; 
         $colorName = $_POST['colorName'];
-        $this->colorModel->updateColor($colorName);
+        $this->colorModel->updateColor($colorId, $colorName);
         $content = 'views/color.view.php';
         include 'views/layout.php';
     }
-
+    
     public function delete() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $colorId = $_POST['colorId'];
-        $this->colorModel->deleteColor($colorId);
-        $content = 'views/colors/delete.php';
-
-    } else {
-        $content = 'views/colors/delete.php';
-    }
+            $colorId = $_POST['colorId'];
+            $this->colorModel->deleteColor($colorId);
+            $content = 'views/colors/delete.php';
+        } else {
+            echo "Méthode de requête incorrecte.";
+            $content = 'views/colors/delete.php';
+        }
         include 'views/layout.php';
     }
-
 }
 ?>

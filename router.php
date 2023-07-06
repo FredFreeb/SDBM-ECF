@@ -10,8 +10,8 @@ $route = str_replace($baseUrl, '', $requestUrl);
 
 // Supprimer les éventuels paramètres de requête
 $route = strtok($route, '?');
-// test de page
-echo (strtok($route, '?'));
+// // test de page
+// echo (strtok($route, '?'));
 // Traiter la route demandée
 switch ($route) {
     case '/':
@@ -29,7 +29,7 @@ switch ($route) {
     case '/index.php/beers/create':
         require_once 'controllers/beer.controller.php';
         $controller = new BeerController();
-        $controller->create();
+        $controller->createBeer();
         break;
 
     case '/index.php/beers/read':
@@ -41,13 +41,13 @@ switch ($route) {
     case '/index.php/beers/update':
         require_once 'controllers/beer.controller.php';
         $controller = new BeerController();
-        $controller->update($articleId);
+        $controller->editBeer($articleId);
         break;
 
     case '/index.php/beers/delete':
         require_once 'controllers/beer.controller.php';
         $controller = new BeerController();
-        $controller->delete($articleId);
+        $controller->deleteBeer($articleId);
         break;
     
     case '/index.php/colors':

@@ -1,7 +1,7 @@
-<h1>Créer une nouvelle bière</h1>
-
 ////// V2
 <?php
+echo '<h1>Créer une nouvelle bière</h1>';
+
 // Tableau associatif des noms de champs
 $fieldNames = [
     'titrage' => 'Titrage',
