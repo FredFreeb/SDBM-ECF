@@ -1,4 +1,5 @@
 <table class="table table-striped">
+<h1>Liste des couleurs</h1>
 <?php
 // views/color/index.php
 

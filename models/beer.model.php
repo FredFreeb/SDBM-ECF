@@ -24,7 +24,8 @@ class BeerModel {
                     FROM article 
                         JOIN marque ON article.ID_MARQUE = marque.ID_MARQUE 
                         JOIN couleur ON article.ID_COULEUR = couleur.ID_COULEUR
-                        JOIN typebiere ON article.ID_TYPE = typebiere.ID_TYPE';
+                        JOIN typebiere ON article.ID_TYPE = typebiere.ID_TYPE
+                            ORDER BY ID_ARTICLE ASC';
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -102,16 +103,12 @@ class BeerModel {
         }
     }
 
-    public function createBeer($beerName, $marqueId, $couleurId, $typeId, $volume, $prixAchat, $titrage) {
+    public function createBeer($beerName, $titrage, $marqueId, $volume, $couleurId, $typeId, $prixAchat) {
         $nextId = $this->getNextPrimaryKeyValue('article', 'ID_ARTICLE');
         $query = 'INSERT INTO article (ID_ARTICLE, NOM_ARTICLE, VOLUME, ID_MARQUE, ID_COULEUR, ID_TYPE, PRIX_ACHAT, TITRAGE) 
-                    SELECT :id, :beerName, :volume, m.ID_MARQUE, c.ID_COULEUR, t.ID_TYPE, :prixAchat, :titrage
-                    FROM marque m
-                    JOIN couleur c ON c.ID_COULEUR = :couleurId
-                    JOIN typebiere t ON t.ID_TYPE = :typeId
-                    WHERE m.ID_MARQUE = :marqueId';
+                VALUES (:nextId, :beerName, :volume, :marqueId, :couleurId, :typeId, :prixAchat, :titrage)';
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $nextId);
+        $stmt->bindParam(':nextId', $nextId);
         $stmt->bindParam(':beerName', $beerName);
         $stmt->bindParam(':volume', $volume);
         $stmt->bindParam(':prixAchat', $prixAchat);
@@ -122,11 +119,7 @@ class BeerModel {
         $stmt->execute();
     }
     
-    
-    
-    
-
-    public function editBeer($beerId) {
+    public function selectBeer($beerId) {
         try {
             $query = 'SELECT * FROM article WHERE ID_ARTICLE = :beerId';
             $stmt = $this->conn->prepare($query);

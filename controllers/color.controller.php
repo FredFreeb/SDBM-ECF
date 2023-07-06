@@ -15,10 +15,10 @@ class ColorController {
         require 'views/layout.php';
     }
 
-    public function create($colorName) { // Renommer le paramètre en $colorName
+    public function create($colorName) { 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $colorName = $_POST['color'];
-            $this->colorModel->createColor($colorName); // Appeler la fonction createColor du modèle
+            $colorName = $_POST['colorName'];
+            $this->colorModel->createColor($colorName);
         } else {
             require 'views/colors/create.php';
         }
@@ -26,9 +26,8 @@ class ColorController {
     
 
     public function update() {
-        $newColor = $_POST['newColor'];
-        $colorId = $_POST['colorId'];
-        $this->colorModel->updateColor($newColor, $colorId);
+        $colorName = $_POST['colorName'];
+        $this->colorModel->updateColor($colorName);
         $content = 'views/color.view.php';
         include 'views/layout.php';
     }
@@ -37,6 +36,8 @@ class ColorController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $colorId = $_POST['colorId'];
         $this->colorModel->deleteColor($colorId);
+        $content = 'views/colors/delete.php';
+
     } else {
         $content = 'views/colors/delete.php';
     }

@@ -14,10 +14,10 @@ class BeerController {
 
     public function index($action = null, $beerId = null) {
         if ($action === 'edit' && $beerId !== null) {
-            $this->beerModel->editBeer($beerId);
+            $this->beerModel->selectBeer($beerId);
             return;
         } elseif ($action === 'create') {
-            header("Location: /beer/create");
+            header("Location: /beers/create");
             return;
         }
         $selectedColor = isset($_POST['color']) ? $_POST['color'] : "";
@@ -28,25 +28,29 @@ class BeerController {
     }
 
     public function create() {
-
-        // Générer l'ID suivant
-        $nextId = $this->beerModel->getNextPrimaryKeyValue('article', 'ID_ARTICLE');
+        // Vérifier si le formulaire a été soumis
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Récupérer les informations du formulaire
+            $titrage = $_POST['titrage'];
+            $marqueId = $_POST['marqueId'];
+            $volume = $_POST['volume'];
+            $couleurId = $_POST['couleurId'];
+            $typeId = $_POST['typeId'];
+            $prixAchat = $_POST['prixAchat'];
+            $beerName = $_POST['beerName'];
     
-        // Récupérer les autres paramètres du formulaire
-        $beerName = $_POST['beerName'];
-        $marqueId = $_POST['marqueId'];
-        $couleurId = $_POST['couleurId'];
-        $typeId = $_POST['typeId'];
-        $volume = $_POST['volume'];
-        $prixAchat = $_POST['prixAchat'];
-        $titrage = $_POST['titrage'];
+            // Traiter les informations (par exemple, en utilisant le modèle)
+            $this->beerModel->createBeer($titrage, $marqueId, $volume, $couleurId, $typeId, $prixAchat, $beerName);
     
-        // Appeler la méthode createBeer avec tous les paramètres
-        $this->beerModel->createBeer($nextId, $beerName, $marqueId, $couleurId, $typeId, $volume, $prixAchat, $titrage);
-        var_dump($_POST);
+            // Afficher un message de succès
+            echo 'La bière a été créée avec succès !';
+        }
+    
+        // Afficher le formulaire
         $content = 'views/beers/create.php';
         require 'views/layout.php';
     }
+    
     
 
     public function update() {

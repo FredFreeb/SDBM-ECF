@@ -51,7 +51,7 @@ class ColorModel {
         return $stmt->execute();
     }
 
-    public function updateColor($colorId, $colorName) {
+    public function updateColor($colorName) {
         $query = "UPDATE couleur SET NOM_COULEUR = :nom WHERE ID_COULEUR = :colorId";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':colorId', $colorId);
@@ -63,7 +63,6 @@ class ColorModel {
         $query = "DELETE FROM couleur WHERE ID_COULEUR = :colorId";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':colorId', $colorId);
-        $stmt->bindParam(':colorName', $colorName);
         return $stmt->execute();
     }
     
