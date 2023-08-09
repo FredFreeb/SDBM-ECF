@@ -1,24 +1,38 @@
-////// V2
-<?php
-echo '<h1>Créer une nouvelle bière</h1>';
+<h1>Créer une nouvelle bière</h1>
 
-// Tableau associatif des noms de champs
-$fieldNames = [
-    'titrage' => 'Titrage',
-    'marqueId' => 'ID de marque',
-    'volume' => 'Volume',
-    'couleurId' => 'ID de couleur',
-    'typeId' => 'ID de type',
-    'prixAchat' => 'Prix d\'achat',
-    'beerName' => 'Nom de la bière'
-];
-
-// Génération du formulaire
-echo '<form method="POST" action="create">';
-foreach ($fieldNames as $fieldName => $fieldLabel) {
-    echo '<label>' . $fieldLabel . '</label>';
-    echo '<input type="text" name="' . $fieldName . '" /><br>';
-}
-echo '<input type="submit" value="Soumettre" />';
-echo '</form>';
-?>
+<form method="POST" action="create">
+    <label>Nom de la bière</label>
+    <input type="text" name="beerName" /><br>
+    
+    <label>Titrage</label>
+    <input type="text" name="titrage" /><br>
+    
+    <label>Volume</label>
+    <input type="text" name="volume" /><br>
+    
+    <label>Prix d'achat</label>
+    <input type="text" name="prixAchat" /><br>
+    
+    <label>Fabricant</label>
+    <select name="marqueId">
+        <?php foreach ($marques as $marque): ?>
+            <option value="<?= $marque['ID'] ?>"><?= $marque['NOM'] ?></option>
+        <?php endforeach; ?>
+    </select><br>
+    
+    <label>Couleur</label>
+    <select name="couleurId">
+        <?php foreach ($colors as $color): ?>
+            <option value="<?= $color['ID'] ?>"><?= $color['NOM'] ?></option>
+        <?php endforeach; ?>
+    </select><br>
+    
+    <label>Type de bières</label>
+    <select name="typeId">
+        <?php foreach ($types as $type): ?>
+            <option value="<?= $type['ID'] ?>"><?= $type['NOM'] ?></option>
+        <?php endforeach; ?>
+    </select><br>
+    
+    <input type="submit" value="Soumettre" />
+</form>

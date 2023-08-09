@@ -4,7 +4,7 @@ class ColorModel {
 
     public function __construct() {
         require 'config.php';
-        $this->conn = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
+        $this->conn = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8mb4;unix_socket=$dbSocket", $dbUser, $dbPass);
     }
 
     public function getNextPrimaryKeyValue($tableName, $primaryKeyColumnName) {
@@ -43,8 +43,7 @@ class ColorModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function createColor($colorName) {
-        $nextId = $this->getNextPrimaryKeyValue('couleur', 'ID_COULEUR');
+    public function create($colorName, $nextId) {
         $query = "INSERT INTO couleur (ID_COULEUR, NOM_COULEUR) VALUES (:colorId, :colorName)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':colorId', $nextId);
@@ -52,21 +51,21 @@ class ColorModel {
         return $stmt->execute();
     }
 
-    public function updateColor($colorName) {
-        $query = "UPDATE couleur SET NOM_COULEUR = :nom WHERE ID_COULEUR = :colorId";
+    public function update($colorId, $colorName) {
+        $query = "UPDATE couleur SET NOM_COULEUR = :colorName WHERE ID_COULEUR = :colorId";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':colorId', $colorId);
         $stmt->bindParam(':colorName', $colorName);
         return $stmt->execute();
     }
 
-    public function deleteColor($colorId) {
+    // Méthode pour supprimer une couleur
+    public function delete($colorId) {
         $query = "DELETE FROM couleur WHERE ID_COULEUR = :colorId";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':colorId', $colorId);
         return $stmt->execute();
     }
-    
 }
 
 ?>

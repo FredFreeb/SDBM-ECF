@@ -13,71 +13,67 @@ $route = strtok($route, '?');
 // // test de page
 // echo (strtok($route, '?'));
 // Traiter la route demandée
+
+// Inclure les contrôleurs une fois
+require_once 'controllers/home.controller.php';
+require_once 'controllers/beer.controller.php';
+require_once 'controllers/color.controller.php';
+require_once 'models/beer.model.php';
+require_once 'models/color.model.php';
+
 switch ($route) {
     case '/':
     case '/index.php':
-        require_once 'controllers/home.controller.php';
         $controller = new homeController();
         $controller->index();
         break;
     case '/index.php/beers':
-        require_once 'controllers/beer.controller.php';
-        $controller = new BeerController();
+        $BeerModel = new BeerModel();
+        $controller = new BeerController($BeerModel);
         $controller->index();
         break;
     
     case '/index.php/beers/create':
-        require_once 'controllers/beer.controller.php';
-        $controller = new BeerController();
-        $controller->createBeer();
-        break;
-
-    case '/index.php/beers/read':
-        require_once 'controllers/beer.controller.php';
-        $controller = new BeerController();
-        $controller->index();
+        $BeerModel = new BeerModel();
+        $controller = new BeerController($BeerModel);
+        $controller->create();
         break;
 
     case '/index.php/beers/update':
-        require_once 'controllers/beer.controller.php';
-        $controller = new BeerController();
-        $controller->editBeer($articleId);
+        $BeerModel = new BeerModel();
+        $controller = new BeerController($BeerModel);
+        $controller->update($_GET['id']);
         break;
 
     case '/index.php/beers/delete':
-        require_once 'controllers/beer.controller.php';
-        $controller = new BeerController();
-        $controller->deleteBeer($articleId);
+        $BeerModel = new BeerModel();
+        $controller = new BeerController($BeerModel);
+        $controller->delete($_GET['id']);
         break;
     
     case '/index.php/colors':
-        require_once 'controllers/color.controller.php';
-        $controller = new ColorController();
+        $colorModel = new ColorModel();
+        $controller = new ColorController($colorModel);
         $controller->index();
         break;
 
     case '/index.php/colors/create':
-        require_once 'controllers/color.Controller.php';
-        $controller = new ColorController();
+        $colorModel = new ColorModel();
+        $controller = new ColorController($colorModel);
         $controller->create('color');
         break;
 
-    case '/index.php/colors/read':
-            require_once 'controllers/color.controller.php';
-            $controller = new ColorController();
-            $controller->index();
-            break;
     
     case '/index.php/colors/update':
-        require_once 'controllers/color.controller.php';
-        $controller = new ColorController();
-        $controller->update();
+        $colorModel = new ColorModel();
+        $controller = new ColorController($colorModel);
+        $controller->update($_GET['id']);
         break;
 
     case '/index.php/colors/delete':
-        require_once 'controllers/color.controller.php';
-        $controller = new ColorController();
-        $controller->delete();
+        $colorModel = new ColorModel();
+        $controller = new ColorController($colorModel);
+        $controller->delete($_GET['id']);
 
         break;
     default:
