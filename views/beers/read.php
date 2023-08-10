@@ -6,23 +6,25 @@ echo '<form action="/index.php/beers" method="post">';
 echo '    <select name="couleurId">';
 echo '        <option value="">Toutes les couleurs</option>';
 foreach ($colors as $color) {
-    echo '        <option value="' . $color['ID_COULEUR'] . '">' . $color['NOM_COULEUR'] . '</option>';
+    echo '<option value="' . $color['ID_COULEUR'] . '">' . $color['NOM_COULEUR'] . '</option>';
 }
-echo '    </select>';
+echo '</select>';
 
-echo '    <select name="typeId">';
-echo '        <option value="">Tous les types</option>';
+echo '<label for="typeID">Type :</label>';
+echo '  <select name="typeId">';
+echo '      <option value="">Tous les types</option>';
 foreach ($types as $type) {
-    echo '        <option value="' . $type['ID_TYPE'] . '">' . $type['NOM_TYPE'] . '</option>';
+    echo '<option value="' . $type['ID_TYPE'] . '">' . $type['NOM_TYPE'] . '</option>';
 }
-echo '    </select>';
+echo '</select>';
 
-echo '    <select name="marqueId">';
-echo '        <option value="">Toutes les marques</option>';
+echo '<label for="marqueId">Marque :</label>';
+echo '  <select name="marqueId">';
+echo '      <option value="">Toutes les marques</option>';
 foreach ($marques as $marque) {
-    echo '        <option value="' . $marque['ID_MARQUE'] . '">' . $marque['NOM_MARQUE'] . '</option>';
+    echo '<option value="' . $marque['ID_MARQUE'] . '">' . $marque['NOM_MARQUE'] . '</option>';
 }
-echo '    </select>';
+echo '</select>';
 
 echo '    <input type="submit" value="Filtrer">';
 echo '</form>';

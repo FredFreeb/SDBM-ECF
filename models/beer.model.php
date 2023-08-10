@@ -137,6 +137,7 @@ class BeerModel {
     //         return $stmt->execute();
     // }
     
+    
     public function delete($articleId) {
             // Suppression des enregistrements associés dans la table vendre
             $this->deleteVendreRecords($articleId);

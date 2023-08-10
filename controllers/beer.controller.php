@@ -22,12 +22,15 @@ class BeerController {
         // Récupère les valeurs des filtres depuis le formulaire HTML
         $colorId = isset($_POST['couleurId']) ? $_POST['couleurId'] : "";
         $typeId= isset($_POST['typeId']) ? $_POST['typeId'] : "";
-        $marqueId = isset($_POST['marquesId']) ? $_POST['marqueId'] : "";
+        $marqueId = isset($_POST['marqueId']) ? $_POST['marqueId'] : "";
     
         // Obtient les données filtrées des bières en utilisant les valeurs des filtres
         $beers = $this->beerModel->getBeers($colorId, $typeId, $marqueId);
     
         // Charge la vue avec les données filtrées pour afficher les résultats
+        $marques = $this->beerModel->getMarques();
+        $colors = $this->colorModel->getColor();
+        $types = $this->beerModel->getTypes();
         $content = 'views/beers/read.php';
         include 'views/layout.php';
     }
