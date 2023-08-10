@@ -1,32 +1,32 @@
+<h1>Liste des bières</h1>
 <?php
-echo '<h1>Liste des bières</h1>';
 $title = 'Beers';
+
+echo '<form action="/index.php/beers" method="post">';
+echo '    <select name="couleurId">';
+echo '        <option value="">Toutes les couleurs</option>';
+foreach ($colors as $color) {
+    echo '        <option value="' . $color['ID_COULEUR'] . '">' . $color['NOM_COULEUR'] . '</option>';
+}
+echo '    </select>';
+
+echo '    <select name="typeId">';
+echo '        <option value="">Tous les types</option>';
+foreach ($types as $type) {
+    echo '        <option value="' . $type['ID_TYPE'] . '">' . $type['NOM_TYPE'] . '</option>';
+}
+echo '    </select>';
+
+echo '    <select name="marqueId">';
+echo '        <option value="">Toutes les marques</option>';
+foreach ($marques as $marque) {
+    echo '        <option value="' . $marque['ID_MARQUE'] . '">' . $marque['NOM_MARQUE'] . '</option>';
+}
+echo '    </select>';
+
+echo '    <input type="submit" value="Filtrer">';
+echo '</form>';
 ?>
-
-<form action="/index.php/beers" method="post">
-    <select name="color">
-        <option value="">Toutes les couleurs</option>
-        <?php foreach ($colors as $color): ?>
-            <option value="<?= $color['ID_COULEUR'] ?>"><?= $color['NOM_COULEUR'] ?></option>
-        <?php endforeach; ?>
-    </select>
-
-    <select name="type">
-        <option value="">Tous les types</option>
-        <?php foreach ($types as $type): ?>
-            <option value="<?= $type['ID_TYPE'] ?>"><?= $type['NOM_TYPE'] ?></option>
-        <?php endforeach; ?>
-    </select>
-
-    <select name="brand">
-        <option value="">Toutes les marques</option>
-        <?php foreach ($brands as $brand): ?>
-            <option value="<?= $brand['ID_MARQUE'] ?>"><?= $brand['NOM_MARQUE'] ?></option>
-        <?php endforeach; ?>
-    </select>
-
-    <input type="submit" value="Filtrer">
-</form>
 
 <div class="table-responsive-max-height">
     <table class="table table-striped">
@@ -38,11 +38,12 @@ $title = 'Beers';
                 <td><?= $beer["NOM_MARQUE"] ?></td>
                 <td><?= $beer["NOM_COULEUR"] ?></td>
                 <td><?= $beer["NOM_TYPE"] ?></td>
-                <td><a class="btn btn-dark " href="beers/update?id=<?= $beer['ID_ARTICLE'] ?>">Modifier</a></td>
-                <td><a class="btn btn-danger " href="beers/delete?id=<?= $beer['ID_ARTICLE'] ?>">Supprimer</a></td>
+                <td><a class="btn btn-dark" href="beers/update?id=<?= $beer['ID_ARTICLE'] ?>">Modifier</a></td>
+                <td><a class="btn btn-danger" href="beers/delete?id=<?= $beer['ID_ARTICLE'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette bière ?')">Supprimer</a></td>
             </tr>
         <?php endforeach; ?>
     </table>
 </div>
 
-<a class="btn btn-info " href="beers/create">Ajouter une bière</a>
+<a class="btn btn-info" href="beers/create">Ajouter une bière</a>
+

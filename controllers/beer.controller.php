@@ -19,19 +19,20 @@ class BeerController {
             return;
         }
     
-        $selectedColor = isset($_POST['color']) ? $_POST['color'] : "";
-        $selectedType = isset($_POST['ID_TYPE']) ? $_POST['ID_TYPE'] : "";
-        $selectedBrand = isset($_POST['ID_MARQUE']) ? $_POST['ID_MARQUE'] : "";
+        // Récupère les valeurs des filtres depuis le formulaire HTML
+        $colorId = isset($_POST['couleurId']) ? $_POST['couleurId'] : "";
+        $typeId= isset($_POST['typeId']) ? $_POST['typeId'] : "";
+        $marqueId = isset($_POST['marquesId']) ? $_POST['marqueId'] : "";
     
-        $colors = $this->colorModel->getColor();
-        $types = $this->beerModel->getTypes();
-        $brands = $this->beerModel->getMarques();
-        $volumes = $this->beerModel->getVolumes();
-        $beers = $this->beerModel->getBeers($selectedColor, $selectedType, $selectedBrand);
+        // Obtient les données filtrées des bières en utilisant les valeurs des filtres
+        $beers = $this->beerModel->getBeers($colorId, $typeId, $marqueId);
     
+        // Charge la vue avec les données filtrées pour afficher les résultats
         $content = 'views/beers/read.php';
         include 'views/layout.php';
     }
+    
+    
     
     
     public function create() {
@@ -43,9 +44,9 @@ class BeerController {
             $marqueId = $_POST['marqueId'];
             $couleurId = $_POST['couleurId'];
             $typeId = $_POST['typeId'];
-    
+            $beerModel = new BeerModel;
             $nextId = $this->beerModel->getNextPrimaryKeyValue('article', 'ID_ARTICLE');
-            $created = $this->beerModel->create($nextId, $beerName, $titrage, $volume, $prixAchat, $marqueId, $couleurId, $typeId);
+            $created = $beerModel->create($nextId, $beerName, $titrage, $volume, $prixAchat, $marqueId, $couleurId, $typeId);
     
             if ($created) {
                 header("Location: /index.php/beers");
@@ -65,20 +66,23 @@ class BeerController {
 
     public function update($articleId) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $articleId = $_POST['id']; // Utilisez 'id' au lieu de 'articleId'
-            $beerName = $_POST['articleName'];
+            $articleId = $_POST['articleId'];
+            $beerName = $_POST['beerName'];
             $titrage = $_POST['titrage'];
-            $volume = $_POST['volume'];
-            $marqueId = $_POST['marque'];
-            $couleurId = $_POST['color'];
-            $typeId = $_POST['type'];
+            $volume= $_POST['volume'];
+            $prixAchat = $_POST['prixAchat'];
+            $marqueId = $_POST['marqueId'];
+            $couleurId = $_POST['couleurId'];
+            $typeId = $_POST['typeId'];
 
-            $this->beerModel->update($articleId, $beerName, $titrage, $volume, $marqueId, $couleurId, $typeId);
-
-            header("Location: /index.php/beers");
-            exit;
+            $updated = $this->beerModel->update($articleId, $beerName, $titrage, $volume, $prixAchat, $marqueId, $couleurId, $typeId);
+            if ($updated) {
+                // Rediriger vers la liste des couleurs après la modification
+                header("Location: /index.php/beers");
+                exit;
+            }
         }
-
+    
         $beer = $this->beerModel->getBeersById($articleId);
         $marques = $this->beerModel->getMarques();
         $colors = $this->colorModel->getColor();
@@ -86,14 +90,23 @@ class BeerController {
         $content = 'views/beers/update.php';
         include 'views/layout.php';
     }
-
     
 
+// Pour delete un crud complexe soit dans ma base de donnees j'insère ce script:
+//      ALTER TABLE vendre
+//      ADD CONSTRAINT FK_VENDRE_ARTICLE
+//      FOREIGN KEY (ID_ARTICLE) REFERENCES article (ID_ARTICLE)
+//      ON DELETE CASCADE;
+// Soit je le fais directement dans mon code de cette manière
+
+
     public function delete($articleId) {
-        $beer = $this->beerModel->getBeersById($articleId);
-        $articleName = $beer['NOM_ARTICLE'];
-        $content = 'views/beers/delete.php';
-        include 'views/layout.php';
+        // Instanciation du modèle
+        $BeerModel = new BeerModel();
+        // Suppression de la bière
+        $BeerModel->delete($articleId);
+        // Redirection vers la liste des couleurs
+        header('Location: /index.php/beers');
     }
     
     

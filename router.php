@@ -36,7 +36,7 @@ switch ($route) {
     case '/index.php/beers/create':
         $BeerModel = new BeerModel();
         $controller = new BeerController($BeerModel);
-        $controller->create();
+        $controller->create('beer');
         break;
 
     case '/index.php/beers/update':

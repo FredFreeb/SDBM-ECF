@@ -19,17 +19,17 @@ class BeerModel {
         return $nextId;
     }
 
-    public function getAllBeers() {
-        $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
-                    FROM article 
-                        JOIN marque ON article.ID_MARQUE = marque.ID_MARQUE 
-                        JOIN couleur ON article.ID_COULEUR = couleur.ID_COULEUR
-                        JOIN typebiere ON article.ID_TYPE = typebiere.ID_TYPE
-                            ORDER BY ID_ARTICLE ASC';
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    // public function getAllBeers() {
+    //     $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
+    //                 FROM article 
+    //                     JOIN marque ON article.ID_MARQUE = marque.ID_MARQUE 
+    //                     JOIN couleur ON article.ID_COULEUR = couleur.ID_COULEUR
+    //                     JOIN typebiere ON article.ID_TYPE = typebiere.ID_TYPE
+    //                         ORDER BY ID_ARTICLE ASC';
+    //     $stmt = $this->conn->prepare($query);
+    //     $stmt->execute();
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
 
     public function getBeersById($articleId) {
         $query = "SELECT * FROM article WHERE ID_ARTICLE = :articleId";
@@ -39,73 +39,66 @@ class BeerModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getBeers($colorId = "") {
-        try {
-            $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
+    public function getBeers($colorId = "", $typeId = "", $marqueId = "") {
+        $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
                     FROM article 
-                    JOIN marque ON article.ID_MARQUE = marque.ID_MARQUE 
-                    JOIN couleur ON article.ID_COULEUR = couleur.ID_COULEUR
-                    JOIN typebiere ON article.ID_TYPE = typebiere.ID_TYPE';
+                        JOIN marque ON article.ID_MARQUE = marque.ID_MARQUE 
+                        JOIN couleur ON article.ID_COULEUR = couleur.ID_COULEUR
+                        JOIN typebiere ON article.ID_TYPE = typebiere.ID_TYPE';
+        $conditions = [];
+        $params = [];
 
-            if ($colorId !== "") {
-                $query .= ' WHERE couleur.ID_COULEUR = :colorId';
-            }
-
-            $query .= ' ORDER BY ID_ARTICLE';
-
-            $stmt = $this->conn->prepare($query);
-
-            if ($colorId !== "") {
-                $stmt->bindParam(':colorId', $colorId);
-            }
-
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo "Erreur lors de la récupération des bières : " . $e->getMessage();
-            return [];
+        if (!empty($colorId)) {
+            $conditions[] = 'couleur.ID_COULEUR = :colorId';
+            $params[':colorId'] = $colorId;
         }
-    }
+
+        if (!empty($typeId)) {
+            $conditions[] = 'typebiere.ID_TYPE = :typeId';
+            $params[':typeId'] = $typeId;
+        }
+
+        if (!empty($marqueId)) {
+            $conditions[] = 'marque.ID_MARQUE = :marqueId';
+            $params[':marqueId'] = $marqueId;
+        }
+
+        if (!empty($conditions)) {
+            $query .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+
+        $query .= ' ORDER BY ID_ARTICLE';
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
 
     public function getVolumes() {
-        try {
             $query = 'SELECT DISTINCT VOLUME FROM article';
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_COLUMN);
-        } catch (PDOException $e) {
-            echo "Erreur lors de la récupération des volumes : " . $e->getMessage();
-            return [];
-        }
+            $volume = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $volume;
     }
     
     public function getMarques() {
-        try {
             $query = 'SELECT ID_MARQUE, NOM_MARQUE FROM marque';
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-
-            echo "Erreur lors de la récupération des marques : " . $e->getMessage();
-            return [];
-        }
+            $marques = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $marques;
     }
 
     public function getTypes() {
-        try {
             $query = 'SELECT ID_TYPE, NOM_TYPE FROM typebiere';
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo "Erreur lors de la récupération des types : " . $e->getMessage();
-            return [];
-        }
+            $types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $types;
     }
 
     public function create($nextId, $beerName, $titrage, $volume, $prixAchat, $marqueId, $couleurId, $typeId) {
-        try {
             $nextId = $this->getNextPrimaryKeyValue('article', 'ID_ARTICLE');
             $query = 'INSERT INTO article (ID_ARTICLE, NOM_ARTICLE, TITRAGE, VOLUME, ID_MARQUE, ID_COULEUR, ID_TYPE, PRIX_ACHAT) 
                     VALUES (:nextId, :beerName, :titrage, :volume, :marqueId, :couleurId, :typeId, :prixAchat)';
@@ -119,46 +112,50 @@ class BeerModel {
             $stmt->bindParam(':couleurId', $couleurId);
             $stmt->bindParam(':typeId', $typeId);
             $stmt->execute();
-        } catch (PDOException $e) {
-            echo "Erreur lors de la création de la bière : " . $e->getMessage();
-        }
     }
     
-    public function update($articleId) {
-        try {
-            $query = "UPDATE article SET NOM_ARTICLE = :nom, TITRAGE = :titrage, VOLUME = :volume, 
-                        ID_MARQUE = :marqueId, ID_COULEUR = :couleurId, ID_TYPE = :typeId WHERE ID_ARTICLE = :id";
+    public function update($articleId, $beerName, $titrage, $volume, $prixAchat, $marqueId, $couleurId, $typeId) {
+            $query = "UPDATE article SET NOM_ARTICLE = :nom, TITRAGE = :titrage, VOLUME = :volume, PRIX_ACHAT = :prixAchat,
+                        ID_MARQUE = :marqueId, ID_COULEUR = :couleurId, ID_TYPE = :typeId WHERE ID_ARTICLE = :id";  
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':id', $articleId);
             $stmt->bindParam(':nom', $beerName);
             $stmt->bindParam(':titrage', $titrage);
             $stmt->bindParam(':volume', $volume);
+            $stmt->bindParam(':prixAchat', $prixAchat);
             $stmt->bindParam(':marqueId', $marqueId);
             $stmt->bindParam(':couleurId', $couleurId);
             $stmt->bindParam(':typeId', $typeId);
             return $stmt->execute();
-        } catch (PDOException $e) {
-            echo "Erreur lors de la mise à jour de la bière : " . $e->getMessage();
-            return false;
-        }
     }
     
 
+    // public function delete($articleId) {
+    //         $query = "DELETE FROM article WHERE ID_ARTICLE = :articleId";
+    //         $stmt = $this->conn->prepare($query);
+    //         $stmt->bindParam(':articleId', $articleId);
+    //         return $stmt->execute();
+    // }
+    
     public function delete($articleId) {
-        try {
+            // Suppression des enregistrements associés dans la table vendre
+            $this->deleteVendreRecords($articleId);
+    
+            // Suppression de la bière dans la table article
             $query = "DELETE FROM article WHERE ID_ARTICLE = :articleId";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':articleId', $articleId);
             return $stmt->execute();
-        } catch (PDOException $e) {
-            echo "Erreur lors de la suppression de la bière : " . $e->getMessage();
-            return false;
-        }
     }
     
-
+    private function deleteVendreRecords($articleId) {
+            $query = "DELETE FROM vendre WHERE ID_ARTICLE = :articleId";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':articleId', $articleId);
+            $stmt->execute();
+    }
+    
     public function getRandomBeers() {
-        try {
             $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
                     FROM article 
                         JOIN marque ON article.ID_MARQUE = marque.ID_MARQUE 
@@ -170,10 +167,6 @@ class BeerModel {
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo "Erreur lors de la récupération des bières aléatoires : " . $e->getMessage();
-            return [];
-        }
     }
 }
 ?>

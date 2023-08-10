@@ -16,21 +16,21 @@
     <label>Fabricant</label>
     <select name="marqueId">
         <?php foreach ($marques as $marque): ?>
-            <option value="<?= $marque['ID'] ?>"><?= $marque['NOM'] ?></option>
+            <option value="<?= $marque['ID_MARQUE'] ?>"><?= $marque['NOM_MARQUE'] ?></option>
         <?php endforeach; ?>
     </select><br>
     
     <label>Couleur</label>
     <select name="couleurId">
         <?php foreach ($colors as $color): ?>
-            <option value="<?= $color['ID'] ?>"><?= $color['NOM'] ?></option>
+            <option value="<?= $color['ID_COULEUR'] ?>"><?= $color['NOM_COULEUR'] ?></option>
         <?php endforeach; ?>
     </select><br>
     
     <label>Type de bières</label>
     <select name="typeId">
         <?php foreach ($types as $type): ?>
-            <option value="<?= $type['ID'] ?>"><?= $type['NOM'] ?></option>
+            <option value="<?= $type['ID_TYPE'] ?>"><?= $type['NOM_TYPE'] ?></option>
         <?php endforeach; ?>
     </select><br>
     

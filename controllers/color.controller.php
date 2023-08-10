@@ -21,6 +21,7 @@ class ColorController {
             $colorName = $_POST['colorName'];
             $colorModel = new ColorModel();
             $nextId = $colorModel->getNextPrimaryKeyValue('couleur', 'ID_COULEUR');
+            
             $created = $colorModel->create($colorName, $nextId);
             if ($created) {
                 // Rediriger vers la liste des couleurs après la création
@@ -59,14 +60,8 @@ class ColorController {
     public function delete($colorId) {
         // Instanciation du modèle
         $colorModel = new ColorModel();
-
         // Suppression de la couleur
         $colorModel->delete($colorId);
-
-        // Affichage de la vue pour mettre à jour une couleur
-        $content = 'views/colors/delete.php';
-        include 'views/layout.php';
-
         // Redirection vers la liste des couleurs
         header('Location: /index.php/colors');
     }
