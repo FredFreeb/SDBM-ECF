@@ -4,7 +4,9 @@ class ColorModel {
 
     public function __construct() {
         require 'config.php';
-        $this->conn = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8mb4;unix_socket=$dbSocket", $dbUser, $dbPass);
+        // quand je passe par mac alterner les lignes de connexion
+        // $this->conn = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8mb4;unix_socket=$dbSocket", $dbUser, $dbPass);
+        $this->conn = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
     }
 
     public function getNextPrimaryKeyValue($tableName, $primaryKeyColumnName) {

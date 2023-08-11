@@ -1,3 +1,8 @@
+Pour commencer recharger dans le terminal composer update
+
+Puis dans config.php dans les modèles si mac décommenté les lignes de socket et dans les models alterner les lien pdo
+
+
 schéma:
 
 index.php
