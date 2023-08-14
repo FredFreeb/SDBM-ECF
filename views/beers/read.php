@@ -33,16 +33,16 @@ echo '</form>';
 <div class="table-responsive-max-height">
     <table class="table table-striped">
         <?php foreach ($beers as $beer): ?>
-            <tr>
-                <td><?= $beer["ID_ARTICLE"] ?></td>
-                <td><?= $beer["NOM_ARTICLE"] ?></td>
-                <td><?= $beer["VOLUME"] ?> cl</td>
-                <td><?= $beer["NOM_MARQUE"] ?></td>
-                <td><?= $beer["NOM_COULEUR"] ?></td>
-                <td><?= $beer["NOM_TYPE"] ?></td>
-                <td><a class="btn btn-dark" href="beers/update?id=<?= $beer['ID_ARTICLE'] ?>">Modifier</a></td>
-                <td><a class="btn btn-danger" href="beers/delete?id=<?= $beer['ID_ARTICLE'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette bière ?')">Supprimer</a></td>
-            </tr>
+       <tr>
+            <td><?= $beer["ID_ARTICLE"] ?></td>
+            <td><?= $beer['NOM_ARTICLE'] ?? "" ?></td>
+            <td><?= $beer['VOLUME'] !== null ? $beer['VOLUME'] . ' cl' : "" ?></td>
+            <td><?= $beer['NOM_MARQUE'] ?? "" ?></td>
+            <td><?= $beer['NOM_COULEUR'] ?? "" ?></td>
+            <td><?= $beer['NOM_TYPE'] ?? "" ?></td>
+            <td><a class="btn btn-dark" href="beers/update?id=<?= $beer['ID_ARTICLE'] ?>">Modifier</a></td>
+            <td><a class="btn btn-danger" href="beers/delete?id=<?= $beer['ID_ARTICLE'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette bière ?')">Supprimer</a></td>
+        </tr>
         <?php endforeach; ?>
     </table>
 </div>
