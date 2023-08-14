@@ -43,9 +43,10 @@ class BeerModel {
     public function getBeers($colorId = "", $typeId = "", $marqueId = "") {
         $query = 'SELECT ID_ARTICLE, NOM_ARTICLE, VOLUME, NOM_MARQUE, NOM_COULEUR, NOM_TYPE 
                     FROM article 
-                        JOIN marque ON article.ID_MARQUE = marque.ID_MARQUE 
-                        JOIN couleur ON article.ID_COULEUR = couleur.ID_COULEUR
-                        JOIN typebiere ON article.ID_TYPE = typebiere.ID_TYPE';
+                        LEFT JOIN marque ON article.ID_MARQUE = marque.ID_MARQUE 
+                        LEFT JOIN couleur ON article.ID_COULEUR = couleur.ID_COULEUR
+                        LEFT JOIN typebiere ON article.ID_TYPE = typebiere.ID_TYPE';
+// Left join pour prendre les nullables
         $conditions = [];
         $params = [];
 
